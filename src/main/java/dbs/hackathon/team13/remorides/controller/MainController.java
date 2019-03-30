@@ -17,11 +17,11 @@ public class MainController {
 	private CustomerService customerService;
 	@Autowired
 	private LoanService loanService;
-	@GetMapping("/users/{name}")
+	@GetMapping("/users/name/{name}")
 	public List<Customer> getCustomers(@PathVariable("name") String name) {
 		return customerService.findCustomers(name);
 	}
-	@GetMapping("/users/{userid}")
+	@GetMapping("/users/id/{userid}")
 	public Customer getCustomer(@PathVariable("userid") String userId) {
 		return customerService.findCustomer(userId);
 	}
@@ -29,8 +29,8 @@ public class MainController {
 	public boolean checkEligibility(@PathVariable("userid") String userId) {
 		return customerService.checkEligibility(userId);
 	}
-	@PostMapping(value="/createLoan" ,consumes = {"application/json"})
-	public void createLoan(@RequestBody LoanDetails loanDetails) {
+	@PostMapping(value="/createLoan/{userid}" ,consumes = {"application/json"})
+	public void createLoan(@PathVariable("userid") String userId,@RequestBody LoanDetails loanDetails) {
 		loanService.createLoan(loanDetails);
 	}
 }
